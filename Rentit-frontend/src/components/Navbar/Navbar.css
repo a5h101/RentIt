@@ -105,6 +105,9 @@
   color: #000000;
   transition: 0.1s;
 }
+.or {
+  color: #ff5e03;
+}
 .search:hover {
   color: #ff5e03;
 }

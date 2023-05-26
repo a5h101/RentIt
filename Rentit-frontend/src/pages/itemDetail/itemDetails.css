@@ -15,6 +15,9 @@
   align-items: center;
   justify-content: center;
 }
+.details-pg-wrap {
+  min-height: 80vh;
+}
 .items {
   display: flex;
   align-items: center;

@@ -12,38 +12,44 @@ import { useState, useEffect } from 'react';
 const Navbar = () => {
   const {
     setSearchTerm,
-    setSearchData,
     setSelectedOption,
-    setFilteredData,
+    setSelectedSort,
     loginObj,
+    setReqParams,
+    setQueryData,
   } = useGlobalContext();
+
   const searchText = useRef('');
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
-  // let user = null;
+  const [searched, setSearched] = useState(false);
   let data = null;
   const navigate = useNavigate();
-  document.addEventListener('keyup', (event) => {
-    if (event.key === 'Enter' && searchText.current.value.trim()) {
-      handleSearch();
-    }
-  });
 
   useEffect(() => {
     function handleResize() {
       setScreenWidth(window.innerWidth);
     }
     window.addEventListener('resize', handleResize);
+    document.addEventListener('keyup', (event) => {
+      if (event.key === 'Enter' && searchText.current.value.trim()) {
+        handleSearch();
+      }
+    });
 
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
 
-  useEffect(() => {
-    if (loginObj) {
-      checkLogin();
-    }
-  }, [loginObj]);
+  useEffect(
+    () => {
+      if (loginObj) {
+        checkLogin();
+      }
+    },
+    [],
+    [loginObj]
+  );
 
   const checkLogin = () => {
     if (sessionStorage.getItem('userDetails')) {
@@ -53,16 +59,27 @@ const Navbar = () => {
   };
 
   const handleSearch = (e) => {
-    navigate('/');
     if (e) e.preventDefault();
-    setSearchTerm(searchText.current.value.trim());
+    if (searchText.current.value) {
+      navigate('/');
+      setReqParams((prevQuery) => {
+        return { ...prevQuery, search: searchText.current.value };
+      });
+      setSearched(true);
+    } else return;
   };
 
   const handleGoHome = () => {
     setSearchTerm(null);
-    setSearchData(null);
-    setFilteredData(null);
-    setSelectedOption('all');
+    setSearched(false);
+    setReqParams({
+      type: '',
+      search: '',
+      sort: '',
+    });
+    setQueryData(null);
+    setSelectedOption('');
+    setSelectedSort('');
     searchText.current.value = '';
   };
   return (
@@ -84,7 +101,7 @@ const Navbar = () => {
             type='submit'
             className='searchBtn buttom search'
           >
-            <FaSearch className='search' size={19} />
+            <FaSearch className={searched ? 'search or' : 'search'} size={19} />
           </button>
           <input
             type='text'

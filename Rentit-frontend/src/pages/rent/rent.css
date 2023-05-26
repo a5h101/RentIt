@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@600&display=swap');
 @import url('https://fonts.cdnfonts.com/css/lohit-tamil');
+
+.rent-pg-wrap {
+  min-height: 120vh;
+}
 .post {
   background: #ff5e03;
   border-radius: 2px;
@@ -45,11 +49,12 @@ form {
   border: 1px solid #cdcdcd;
   border-radius: 2px;
 }
+
 .titles {
-  font-family: 'Libre Franklin';
+  font-family: 'Be Vietnam Pro';
   font-style: normal;
   font-weight: 400;
-  font-size: 20px;
+  font-size: 18px;
   margin-bottom: 8px;
   margin-top: 2px;
 }
@@ -87,6 +92,7 @@ form {
 }
 .detail4 {
   flex-direction: row !important;
+  align-items: center;
 }
 .rentBox {
   box-sizing: border-box;
@@ -192,6 +198,9 @@ textarea {
   transform: scale(1.1);
 }
 @media only screen and (max-width: 668px) {
+  .rent-pg-wrap {
+    min-height: 90vh;
+  }
   .post {
     background: #ff5e03;
     border-radius: 2px;
@@ -338,6 +347,9 @@ textarea {
   }
 }
 @media only screen and (max-width: 512px) {
+  .rent-pg-wrap {
+    min-height: 75vh;
+  }
   .post {
     background: #ff5e03;
     border-radius: 2px;
@@ -374,12 +386,15 @@ textarea {
     align-items: flex-start;
     justify-content: center;
     flex-direction: column;
-    margin: 1rem auto;
-    width: 368px;
+    margin: 1.25rem auto;
+    width: 358px;
     box-sizing: border-box;
     background: #ffffff;
     border: 1px solid #cdcdcd;
     border-radius: 2px;
+  }
+  .rentDes {
+    width: 2rem;
   }
   .titles {
     font-family: 'Libre Franklin';
@@ -394,7 +409,8 @@ textarea {
     font-family: 'Lexend Deca';
     font-style: normal;
     font-weight: 600;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
+    height: 2.75rem;
   }
   .detail1,
   .detail2,
@@ -427,6 +443,7 @@ textarea {
     outline: none;
   }
   .des {
+    width: 2rem;
     height: 56px;
   }
   .detailA,
@@ -435,7 +452,7 @@ textarea {
     margin-bottom: 0.5rem;
   }
   .wrapBox {
-    width: 328px;
+    width: 324px;
   }
   .rentCharge {
     width: 200px;
@@ -457,7 +474,7 @@ textarea {
     /* max-width: 533px; */
     max-height: 78px;
     min-height: 35px;
-    min-width: 328px;
+    min-width: 324px;
   }
   .rentCharge {
     display: flex;

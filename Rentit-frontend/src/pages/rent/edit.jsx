@@ -22,16 +22,8 @@ const EditPost = () => {
   //Set the feilds to existing values when the page loads
   useEffect(() => {
     if (location.state?.data) {
-      setValues({
-        owner: location.state.data.owner,
-        price: location.state.data.price,
-        unit: location.state.data.unit,
-        type: location.state.data.type,
-        description: location.state.data.description,
-        contact: location.state.data.contact,
-        lpuid: location.state.data.lpuid,
-        product: location.state.data.product,
-      });
+      const { image, ...otherValues } = location.state.data;
+      setValues(otherValues);
     } else navigate('/');
   }, []);
 
@@ -70,10 +62,25 @@ const EditPost = () => {
       console.log('Error: ', error);
     };
   };
+  const compareEditToOriginal = (values, newValues) => {
+    for (const key in newValues) {
+      if (values[key] !== newValues[key]) {
+        return false;
+      }
+    }
+    return true;
+  };
 
   //To post the edited post
   const handlePost = async (e) => {
     e.preventDefault();
+    //Return if no changes have been made
+    if (compareEditToOriginal(location.state.data, values)) {
+      toast.error('No changes made', {
+        position: 'bottom-right',
+      });
+      return;
+    }
     if (!values.image && !location.state.data.image) {
       toast.error('Please add an image', {
         position: 'bottom-right',
@@ -131,9 +138,9 @@ const EditPost = () => {
     return <></>;
   }
   return (
-    <>
+    <div className='rent-pg-wrap'>
       <ToastContainer />
-      <div className='rentHeading or heading'>What do you want to rent ?</div>
+      <div className='rentHeading heading'>What do you want to rent ?</div>
       <form onSubmit={handlePost}>
         <div className='rentForm'>
           <div className='detail1'>
@@ -331,7 +338,7 @@ const EditPost = () => {
         </div>
       </form>
       {/* <AppFooter /> */}
-    </>
+    </div>
   );
 };
 export default EditPost;

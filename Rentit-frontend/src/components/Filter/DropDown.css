@@ -1,0 +1,33 @@
+/* .dropDown {
+  width: 1rem;
+} */
+#category {
+  width: 6rem;
+  height: 2rem;
+  font-size: 12px;
+  outline: none;
+  border: none;
+  background-color: transparent;
+  font-family: 'Libre Franklin';
+}
+.dropDown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: -1.25rem;
+  margin-top: 0.5rem;
+  background-color: transparent;
+  margin-left: 10%;
+  /* padding-left: 4rem; */
+}
+@media only screen and (max-width: 512px) {
+  #category {
+    width: 5.5rem;
+    height: 2rem;
+    font-size: 11px;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    font-family: 'Libre Franklin';
+  }
+}

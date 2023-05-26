@@ -7,109 +7,44 @@ import { useGlobalContext } from '../../Context';
 import unhappy from '../../images/unhappy.svg';
 
 const Items = () => {
-  const [itemData, setItemData] = useState(null);
   const [user, setUser] = useState(null);
-  const { searchData, searching, filteredData, selectedSort } =
-    useGlobalContext();
-  const [displayData, setDispayData] = useState(null);
+  const { searching, queryData } = useGlobalContext();
 
-  const url = `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_LOCALHOST}/${process.env.REACT_APP_ADDRESS}/items`;
-
-  const checkLogin = () => {
-    setUser(JSON.parse(sessionStorage.getItem('userDetails')));
-  };
-
-  //Fetch all products on pags load
   useEffect(() => {
-    const fetchData = async () => {
-      checkLogin();
-      try {
-        const response = await fetch(url);
-        const data = await response.json();
-        setItemData(data.data.items);
-      } catch (error) {
-        console.log('error', error);
-      }
-    };
-
-    fetchData();
+    setUser(JSON.parse(sessionStorage.getItem('userDetails')));
   }, []);
 
-  //Change the data which is getting displayed after we get search data
-  useEffect(() => {
-    //If search data is not null and length not is not empty ('')
-    if (searchData && searchData.length) setDispayData(searchData);
-    //If search data is set null; This will be used to show all prodcuts again
-    else if (searchData === null) setDispayData(itemData);
-    //This will be used to show no results
-    else setDispayData('');
-  }, [searchData]);
-
-  //Change the data getting dispyed after getting filtered data
-  useEffect(() => {
-    if (filteredData && filteredData.length) setDispayData(filteredData);
-    else if (filteredData === null) setDispayData(itemData);
-    else setDispayData('');
-  }, [filteredData]);
-
-  //When we have all products's data
-  useEffect(() => {
-    //If nothing is searched then display all products
-    if (itemData && searchData === null && filteredData === null) {
-      setDispayData(itemData);
-    }
-  }, [itemData]);
-
-  // const acendingSort=(data,sortby)=>{
-  //   data.sort((a,b)=>a.sortby-b.sortby)
-  //   return data
-  // }
-
-  // const decendingSort=(data,sortby)=>{
-  //   data.sort((a,b)=>b.sortby-a.sortby)
-  //   return data
-  // }
-
   //To activate loading screen when data is not there to display or search is going on
-  if (displayData === null || searching)
+  if (queryData === null || searching)
     return (
-      <>
+      <div className='items-wrap'>
         <div id='loader'>
           <img className='loader' src={Loading} alt='loading...' />
         </div>
-      </>
+      </div>
     );
-  //To show empty search
-  if (displayData === '')
+  //To display main results
+  else if (queryData && queryData.length) {
     return (
-      <>
-        <div className='unhappy'>
-          <img id='unhappy' src={unhappy} alt='' />
+      <div className='items-wrap'>
+        <div className='allItems'>
+          {queryData.map((data, index) => {
+            return <ItemCard key={index} data={data} user={user} />;
+          })}
         </div>
-        <div className='searchMsg'>Sorry,</div>
-        <div className='searchMsg'>No results found.</div>
-      </>
+      </div>
     );
+  }
+  //To show empty search
   return (
-    <>
-      {selectedSort === 'true' ? (
-        <div className='allItems'>
-          {displayData
-            .sort((a, b) => b.likes - a.likes)
-            .map((data, index) => {
-              return <ItemCard key={index} data={data} user={user} />;
-            })}
-        </div>
-      ) : (
-        <div className='allItems'>
-          {displayData
-            .sort((a, b) => a.likes - b.likes)
-            .map((data, index) => {
-              return <ItemCard key={index} data={data} user={user} />;
-            })}
-        </div>
-      )}
-    </>
+    <div className='items-wrap'>
+      <div className='unhappy'>
+        <img id='unhappy' src={unhappy} alt='' />
+      </div>
+      <div className='searchMsg'>Sorry,</div>
+      <div className='searchMsg'>No results found.</div>
+    </div>
   );
 };
+
 export default Items;

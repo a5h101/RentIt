@@ -21,7 +21,7 @@ const Login = () => {
   }
   //If the user is not logged in then return the Login page
   return (
-    <>
+    <div className='login-pg-wrap'>
       <div className='loginBox'>
         <div className='signInTop signIn'>
           <div className='logoBox'>
@@ -81,7 +81,7 @@ const Login = () => {
           All you personl detials are safe with us.
         </div>
       </div>
-    </>
+    </div>
   );
 };
 export default Login;

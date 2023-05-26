@@ -27,14 +27,13 @@ exports.postItem = async (req, res) => {
         },
       });
     } else {
-      res.status(403).json({
+      res.status(401).json({
         status: 'fail',
         message: 'Autherisation failed',
       });
     }
   } catch (err) {
-    console.log(err);
-    res.status(404).json({
+    res.status(500).json({
       status: 'fail',
       message: err,
     });
@@ -97,17 +96,17 @@ exports.updateItem = async (req, res) => {
       } else {
         res.status(403).json({
           status: 'fail',
-          message: 'Autherisation failed',
+          message: 'Not allowed',
         });
       }
     } else {
-      res.status(403).json({
+      res.status(401).json({
         status: 'fail',
         message: 'Autherisation failed',
       });
     }
   } catch (err) {
-    res.status(404).json({
+    res.status(500).json({
       status: 'fail',
       message: err,
     });

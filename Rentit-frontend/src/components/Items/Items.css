@@ -3,6 +3,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+.items-wrap {
+  min-height: 65vh;
+}
 .allItems {
   display: flex;
   align-items: center;

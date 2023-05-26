@@ -17,3 +17,14 @@
   margin-right: 10%;
   /* padding-left: 4rem; */
 }
+@media only screen and (max-width: 512px) {
+  #category-sort {
+    font-family: 'Libre Franklin';
+    width: 7.5rem;
+    height: 2rem;
+    font-size: 11px;
+    outline: none;
+    border: none;
+    background-color: transparent;
+  }
+}

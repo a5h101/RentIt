@@ -25,7 +25,7 @@ const productSchema = new mongoose.Schema({
         const wordCount = value.trim().length;
         return wordCount >= 3 && wordCount <= 25;
       },
-      message: 'Description must be 230 words or fewer',
+      message: 'Name must be 25 words or fewer',
     },
   },
   price: {
@@ -72,6 +72,17 @@ const productSchema = new mongoose.Schema({
   type: {
     type: String,
     required: true,
+    enum: {
+      values: [
+        'electronics',
+        'clothes',
+        'sports',
+        'hardware',
+        'accessories',
+        'others',
+      ],
+      message: 'Not accepted type',
+    },
   },
   createdAt: {
     type: Date,

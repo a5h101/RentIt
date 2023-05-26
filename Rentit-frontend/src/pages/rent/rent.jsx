@@ -7,11 +7,12 @@ import Loading from '../../images/loading.svg';
 import User from '../login/login';
 import { CiCircleRemove } from 'react-icons/ci';
 import { ToastContainer, toast } from 'react-toastify';
-// import AppFooter from '../../components/Footer/AppFooter';
+import { useGlobalContext } from '../../Context';
 import 'react-toastify/dist/ReactToastify.css';
 const Rent = () => {
   const [values, setValues] = useState({}); //To store the form inputs
   const [loader, setLoader] = useState(false);
+  const { setReqParams } = useGlobalContext();
 
   const navigate = useNavigate();
   const url = `${process.env.REACT_APP_PROTOCOL}://${process.env.REACT_APP_LOCALHOST}/${process.env.REACT_APP_ADDRESS}/rent`;
@@ -76,6 +77,12 @@ const Rent = () => {
       if (response.status === 201) {
         alert('Posted sucesfully');
         navigate('/');
+        //To trigger useEffect that refetches query from server in order to show new upload without manual referesh
+        setReqParams({
+          type: '',
+          search: '',
+          sort: '',
+        });
       } else if (response.status) {
         alert('Failed to post due to some issue');
       }
@@ -102,9 +109,9 @@ const Rent = () => {
     );
   }
   return (
-    <>
+    <div className='rent-pg-wrap'>
       <ToastContainer />
-      <div className='rentHeading or heading'>What do you want to rent ?</div>
+      <div className='rentHeading heading'>What do you want to rent ?</div>
       <form onSubmit={handlePost}>
         <div className='rentForm'>
           <div className='detail1'>
@@ -285,8 +292,7 @@ const Rent = () => {
           <button className='post btn'>Post</button>
         </div>
       </form>
-      {/* <AppFooter /> */}
-    </>
+    </div>
   );
 };
 export default Rent;

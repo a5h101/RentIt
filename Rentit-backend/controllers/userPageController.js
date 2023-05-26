@@ -48,13 +48,13 @@ exports.userLogin = async (req, res) => {
       });
     } catch (err) {
       console.log(err);
-      res.status(404).json({
+      res.status(500).json({
         status: 'fail',
         message: `there is error:${err}`,
       });
     }
   } else {
-    res.status(403).json({
+    res.status(401).json({
       status: 'fail',
       message: `Authentication failed`,
     });
@@ -77,16 +77,15 @@ exports.getPostedProducts = async (req, res) => {
         },
       });
     } else {
-      res.status(409).json({
+      res.status(401).json({
         status: 'fail',
         message: 'Autherisation failed',
       });
     }
   } catch (error) {
-    console.log(error);
-    res.status(404).json({
+    res.status(500).json({
       status: 'fail',
-      message: error,
+      message: err,
     });
   }
 };

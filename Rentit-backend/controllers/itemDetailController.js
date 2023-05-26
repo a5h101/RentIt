@@ -60,7 +60,7 @@ exports.upateItem = async (req, res) => {
         message: `Authentication failed`,
       });
     }
-  } catch (error) {
+  } catch (err) {
     console.log(err);
     res.status(404).json({
       status: 'fail',
